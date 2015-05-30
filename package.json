@@ -1,0 +1,52 @@
+{
+  "name": "velesbench",
+  "version": "1.0.0",
+  "description": "Veles benchmarking static web page",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vmarkovtsev/velesbench.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vmarkovtsev/velesbench/issues"
+  },
+  "homepage": "https://github.com/vmarkovtsev/velesbench",
+  "devDependencies": {
+    "bower": ">=1.3.12",
+    "browserify": ">=9.0.0",
+    "babelify": "*",
+    "del": "*",
+    "lazypipe": "*",
+    "gulp": ">=3.8.11",
+    "gulp-load-plugins": "*",
+    "gulp-bower": "*",
+    "gulp-concat": "*",
+    "gulp-useref": ">=1.1.2",
+    "gulp-if": "*",
+    "gulp-uglify": "*",
+    "gulp-minify-html": "*",
+    "gulp-minify-css": "1.1.0",
+    "gulp-sass": "<2.0.0",
+    "gulp-sourcemaps": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-newer": "*",
+    "gulp-imagemin": "*",
+    "gulp-svgmin": "*",
+    "gulp-markdown": "*",
+    "gulp-rename": "*",
+    "gulp-replace": "*",
+    "gulp-util": "*",
+    "gulp-nunjucks-html": ">=1.1.2",
+    "imagemin-pngquant": "*"
+  },
+  "engines": {
+    "node": ">=0.12.2"
+  },
+  "private": true,
+  "scripts": {
+    "gulp": "gulp",
+    "bower": "bower"
+  }
+}
