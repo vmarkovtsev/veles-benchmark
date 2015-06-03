@@ -3,10 +3,11 @@ plugins = require("gulp-load-plugins")();
 var babelify = require("babelify");
 var browserify = require("browserify");
 var del = require("del");
+var through2 = require('through2');
 var pngquant = require("imagemin-pngquant");
 var lazypipe = require("lazypipe");
 var dist = "dist/";
-var report_src = "src/report.md";
+var report_src = "src/*.md";
 
 var assets_pipeline = lazypipe().pipe(plugins.sourcemaps.init,
   {loadMaps: true, debug: true});
@@ -102,7 +103,8 @@ gulp.task("watch-browserify", function () {
 
 gulp.task("markdown", function() {
   return gulp.src(report_src)
-      .pipe(markdown())
+      .pipe(plugins.markdown())
+      .pipe(plugins.concat("markdown.html", {newLine: "<br><br><hr><br><br>\n"}))
       .pipe(gulp.dest("build"))
 });
 
@@ -110,8 +112,8 @@ gulp.task("benchmark", ["sass", "browserify", "markdown"], function () {
   var assets = plugins.useref.assets({}, assets_pipeline);
   return gulp.src("src/benchmark.html")
       .pipe(plugins.nunjucksHtml({
-        locals: {lang: "en"},
-        searchPaths: ["src"]
+        locals: {date: new Date()},
+        searchPaths: ["src", "build"]
       }).on("error", plugins.util.log))
       .pipe(assets)
       .pipe(plugins.if(["**/*.js", "!**/jquery.min.js"],
@@ -127,4 +129,4 @@ gulp.task("benchmark", ["sass", "browserify", "markdown"], function () {
       .pipe(gulp.dest(dist));
 });
 
-gulp.task("default", ["fonts", "media", "benchmark"]];
+gulp.task("default", ["fonts", "media", "benchmark"]);
