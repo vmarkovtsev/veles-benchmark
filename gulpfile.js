@@ -6,7 +6,7 @@ var del = require("del");
 var through2 = require('through2');
 var pngquant = require("imagemin-pngquant");
 var lazypipe = require("lazypipe");
-var dist = "dist/";
+var dist = "/var/www-data/benchmarks";
 var report_src = "src/*.md";
 
 var assets_pipeline = lazypipe().pipe(plugins.sourcemaps.init,
@@ -125,7 +125,9 @@ gulp.task("benchmark", ["sass", "browserify", "markdown"], function () {
       .pipe(plugins.sourcemaps.write("maps"))
       .pipe(assets.restore())
       .pipe(plugins.useref())
-      .pipe(plugins.if("*.html", plugins.minifyHtml({empty: true, loose: true})))
+      .pipe(plugins.if("*.html", lazypipe()
+          .pipe(plugins.minifyHtml, {empty: true, loose: true})
+          .pipe(plugins.rename, "index.html")()))
       .pipe(gulp.dest(dist));
 });
 
